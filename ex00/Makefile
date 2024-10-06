@@ -1,8 +1,8 @@
 NAME = ex00
 CPP = c++ -std=c++98
 CPP_FLAGS = -Wall -Wextra -Werror
-SRC = main.cpp Account.cpp Bank.cpp
-HPP = Account.hpp Bank.hpp
+SRC = main.cpp  Bank.cpp
+HPP =  Bank.hpp
 OBJ = $(SRC:.cpp=.o)
 
 all: $(NAME)

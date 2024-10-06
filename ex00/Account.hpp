@@ -10,11 +10,11 @@ class Account
 	public:
 		Account(std::string const &fname, std::string const &lname, std::string const &surname);
 		~Account();
-	public:
-		int getId( void ) const;
-		int getValue( void ) const;
-		int getBalance( void ) const;
-		int getAge( void ) const;
+//	public:
+//		int getId( void ) const;
+//		int getValue( void ) const;
+//		int getBalance( void ) const;
+//		int getAge( void ) const;
 	private:
 		int id;
 		int value;

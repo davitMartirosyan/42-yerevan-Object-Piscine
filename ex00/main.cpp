@@ -1,10 +1,12 @@
 #include <iostream>
-#include "Account.hpp"
+#include <stdexcept>
 #include "Bank.hpp"
 
 int main ( void )
 {
 	Bank *AmeriaBank = new Bank;
-	//bank->newAccount("Davit", "Martirosyan", "Sureni", 26);
-	AmeriaBank->getLiquidity();
+
+	AmeriaBank->add("Davit", "Martirosyan", "Sureni", "AP0634545", 26);
+
+	delete AmeriaBank;
 }

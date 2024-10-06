@@ -1,6 +1,6 @@
 #include "Bank.hpp"
 
-Bank::Bank() : id(0), liquidity(0)
+Bank::Bank() : id(0), liquidity(0), fund(0)
 {
 
 }
@@ -13,6 +13,34 @@ Bank::~Bank()
 		Account* tmp = itr->second;
 		itr++;
 		delete tmp;
+	}
+}
+
+void Bank::deposit(int depo)
+{
+	if (sessionId.empty())
+		throw std::logic_error("Please Login!");
+	fund += depo - (0.95 * depo);
+	depo = (0.95 * depo);
+	std::map<std::string, Account*>::iterator itr = clientsAccounts.find(sessionId);
+	if (itr != clientsAccounts.end())
+	{
+		itr->second->balance = depo;
+		std::cout << itr->second->balance << std::endl;
+
+		std::cout << "Bank Funds: " << fund << std::endl;
+	}
+}
+
+void Bank::login(std::string const &passport)
+{
+	if (clientsAccounts.find(passport) != clientsAccounts.end())
+	{
+		sessionId = passport;
+	}
+	else
+	{
+		throw std::logic_error("Login Failed!");
 	}
 }
 

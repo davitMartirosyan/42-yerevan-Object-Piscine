@@ -24,8 +24,9 @@ class Bank
 		Bank();
 		~Bank();
 	public: //Account utilities
-		void withdraw(std::string const &passport, int wdraw);
-		void deposit(std::string const &deposit, int depo);
+		void withdraw(int wdraw);
+		void deposit(int depo);
+		void login(std::string const &passport);
 	public:
 		void add(std::string const &fname, std::string const &lname, std::string const &surname, std::string const &passport, int age);
 		void remove(std::string const &passport);
@@ -36,6 +37,8 @@ class Bank
 	private:
 		int id;
 		int liquidity;
+		int fund;
+		std::string sessionId;
 		std::map<std::string, Account *> clientsAccounts;
 };
 

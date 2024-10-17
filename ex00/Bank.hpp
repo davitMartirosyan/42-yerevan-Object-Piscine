@@ -29,12 +29,20 @@ class Bank
 		void login(std::string const &passport);
 	public:
 		void add(std::string const &fname, std::string const &lname, std::string const &surname, std::string const &passport, int age);
-		void remove(std::string const &passport);
-		void change(std::string const &passport, std::string const &newPassport);
-		void change(std::string const &passport, std::string const &newFname, std::string const &newLname);
+
+	public:
+		std::string 	&getFname( void );
+		std::string 	getLname( void ) const;
+		std::string 	getSurname( void ) const;
+		std::string 	getPassport( void ) const;
+		int 		getId( void ) const;
+		int		getValue( void ) const;
+		int		getBalance( void ) const;
+		int		getAge( void ) const;
 	public:
 		int getLiquidity( void ) const;
 	private:
+		float percent;
 		int id;
 		int liquidity;
 		int fund;

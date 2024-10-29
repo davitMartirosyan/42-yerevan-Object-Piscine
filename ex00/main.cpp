@@ -4,22 +4,26 @@
 
 int main ( void )
 {
-	Bank *AmeriaBank = new Bank;
-	try
-	{
-		AmeriaBank->add("Davit", "Martirosyan", "Sureni", "AP0634545", 26);
+	Bank* AmeriaBank = new Bank;
+	try{
 
-		AmeriaBank->login("AP0634545");
+		AmeriaBank->add("AP06500", "Davit", "Martirosyan");
+		AmeriaBank->add("AP06354", "Garik", "Martirosyan");
 
-		AmeriaBank->deposit(500);
+		AmeriaBank->deposit("AP06500", 2000);
+		AmeriaBank->deposit("AP06500", 2000);
+		AmeriaBank->deposit("AP06500", 2000);
+		AmeriaBank->deposit("AP06500", 2000);
+
+
+		float myBalance = AmeriaBank->getBalance("AP06500");
+		std::cout << myBalance << std::endl;
+		delete AmeriaBank;
 
 	}
-	catch(const std::exception &e)
+	catch(std::exception const &e)
 	{
 		std::cout << e.what() << std::endl;
 		delete AmeriaBank;
-		return (1);
 	}
-	delete AmeriaBank;
-	return (0);
 }

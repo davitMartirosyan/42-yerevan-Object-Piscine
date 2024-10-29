@@ -4,50 +4,51 @@
 #include <vector>
 #include <map>
 
-typedef struct Account Account;
-
 class Bank
 {
-	private:
-		struct Account
-		{
-			std::string fname;
-			std::string lname;
-			std::string surname;
-			std::string passport;
-			int id;
-			int value;
-			int balance;
-			int age;
-		};
 	public:
 		Bank();
 		~Bank();
-	public: //Account utilities
-		void withdraw(int wdraw);
-		void deposit(int depo);
-		void login(std::string const &passport);
 	public:
-		void add(std::string const &fname, std::string const &lname, std::string const &surname, std::string const &passport, int age);
-
+		void add(std::string const &passport, std::string const &f, std::string const &l);
+		void deposit(std::string const &passport, int balance);
 	public:
-		std::string 	&getFname( void );
-		std::string 	getLname( void ) const;
-		std::string 	getSurname( void ) const;
-		std::string 	getPassport( void ) const;
-		int 		getId( void ) const;
-		int		getValue( void ) const;
-		int		getBalance( void ) const;
-		int		getAge( void ) const;
-	public:
-		int getLiquidity( void ) const;
+		float getBalance(std::string const &passport);
+		std::string const &getFname(int id);
 	private:
-		float percent;
-		int id;
-		int liquidity;
-		int fund;
-		std::string sessionId;
-		std::map<std::string, Account *> clientsAccounts;
+		class Account{
+			public:
+				Account(std::string const &passport, 
+						std::string const &f,
+						std::string const &l);
+				~Account();
+			public:
+				std::string const &getFname( void ) const;
+				std::string const &getLname( void ) const;
+				std::string const &getPassport( void ) const;
+				float getBalance( void ) const;
+				int getId( void ) const;
+			private:
+				int id;
+				// int value;
+				float balance;
+				std::string fname;
+				std::string lname;
+				std::string passport;
+			private:
+				void setId(int id);
+				void setFname(std::string const &f);
+				void setLname(std::string const &l);
+				void setBalance(int balance);
+				void setPassport(std::string const &passport);
+				friend class Bank;
+		};
+		std::map<int, Account*> users;	
+		static int id;
+		int funds;
+		int loan;
+	public:
+		typedef std::map<int, Account*>::iterator UsersDb;
 };
 
 #endif

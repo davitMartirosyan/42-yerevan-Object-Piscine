@@ -1,5 +1,5 @@
 NAME = ex00
-CPP = c++ -std=c++98
+CPP = c++ -g -fsanitize=address -std=c++98
 CPP_FLAGS = -Wall -Wextra -Werror
 SRC = main.cpp  Bank.cpp
 HPP =  Bank.hpp
@@ -13,6 +13,10 @@ $(NAME) : $(OBJ)
 %.o : %.cpp $(HPP)
 	$(CPP) $(CPP_FLAGS) -c $< -o $@
 
+push:
+	@git add .
+	@read -p "Commit: " $commitMessage
+	@git commit -m "$commitMessage"
 
 fclean: clean
 	@rm -rf $(NAME)

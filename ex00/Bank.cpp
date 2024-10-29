@@ -1,83 +1,129 @@
 #include "Bank.hpp"
 
-Bank::Bank() : percent(0.95), id(0), liquidity(0), fund(0), sessionId("")
+int Bank::id = 0;
+Bank::Bank()
+    : funds(5000), loan(0)
 {
 
 }
 
 Bank::~Bank()
 {
-	std::map<std::string, Account*>::iterator itr = clientsAccounts.begin();
-	while (itr != clientsAccounts.end())
-	{
-		Account* tmp = itr->second;
-		itr++;
-		delete tmp;
-	}
+    std::map<int, Account*>::iterator it = users.begin();
+    while (it != users.end())
+    {
+        if (it->second)
+        {
+            delete it->second;
+            it->second = NULL;
+        }
+        it++;
+    }
 }
 
-void Bank::deposit(int depo)
+void Bank::add(std::string const &passport, std::string const &f, std::string const &l)
 {
-	if (sessionId.empty())
-		throw std::logic_error("Please Login!");
-	fund += depo - (percent * depo);
-	depo = (percent * depo);
-	std::map<std::string, Account*>::iterator itr = clientsAccounts.find(sessionId);
-	if (itr != clientsAccounts.end())
-	{
-		itr->second->balance = depo;
-		std::cout << itr->second->balance << std::endl;
-
-		std::cout << "Bank Funds: " << fund << std::endl;
-		std::cout << itr->second->passport << " funds: " << itr->second->balance << std::endl;
-	}
+    //check if passport already exist
+    Bank::Account* client = new Bank::Account(passport, f, l);
+    users.insert(std::make_pair(id, client));
+    id++;
 }
 
-void Bank::login(std::string const &passport)
+void Bank::deposit(std::string const &passport, int balance)
 {
-	if (clientsAccounts.find(passport) != clientsAccounts.end())
-	{
-		sessionId = passport;
-	}
-	else
-	{
-		throw std::logic_error("Login Failed!");
-	}
+    std::map<int, Account*>::iterator it = users.begin();
+    int tBalance = balance;
+    while (it != users.end())
+    {
+        if (it->second->getPassport() == passport)
+        {
+            this->funds = tBalance = balance * 0.05;
+            it->second->setBalance(balance - tBalance);
+            return ;
+        }
+        it++;
+    }
+    tBalance = 0;
+    throw std::runtime_error("Account not found");
 }
 
-int Bank::getLiquidity( void ) const
+float Bank::getBalance(std::string const &passport)
 {
-	return (liquidity);
+    UsersDb db = users.begin();
+    while (db != users.end())
+        if (db->second->getPassport() == passport)
+            return (db->second->getBalance());
+    throw std::runtime_error("Account not found");
 }
 
-void Bank::add(std::string const &fname, std::string const &lname, std::string const &surname, std::string const &passport, int age)
+std::string const &Bank::getFname(int id)
 {
-	if (clientsAccounts.find(passport) != clientsAccounts.end())
-		std::cout << "There is one cusomter with this passport" << std::endl;
-	else
-	{
-		Account *newCustomer = new Account;
-		newCustomer->fname = fname;
-		newCustomer->lname = lname;
-		newCustomer->age = age;
-		newCustomer->surname = surname;
-		newCustomer->passport = passport;
-		newCustomer->id = id++;
-		newCustomer->balance = 0;
-		newCustomer->value = 0;
-
-		clientsAccounts.insert(std::make_pair(passport, newCustomer));
-		std::cout << "Welcome " << fname << " " << lname << std::endl;
-
-	}
+    std::map<int, Account*>::iterator it = users.find(id);
+    if (it != users.end())
+        return (it->second->getFname());
+    throw std::runtime_error("Account not found");
 }
 
-//std::string &Bank::getFname( void )
-//{
-//	if (sessionId.empty())
-//		throw std::logic_error("Please Login!");
-//	std::map<std::string, Account*>::iterator itr = clientsAccounts.find(sessionId);
-//	if (itr != clientsAccounts.end())
-//		return (itr->second->fname);		
-//}
 
+Bank::Account::Account(std::string const &passport, 
+						std::string const &f,
+						std::string const &l)
+						: balance(0.0)
+{
+    this->setPassport(passport);
+    this->setFname(f);
+    this->setLname(l);
+    this->setId(id);
+}
+
+Bank::Account::~Account()
+{
+    
+}
+
+std::string const &Bank::Account::getFname( void ) const
+{
+    return (this->fname);
+}
+
+std::string const &Bank::Account::getLname( void ) const
+{
+    return (this->lname);
+}
+std::string const &Bank::Account::getPassport( void ) const
+{
+    return (this->passport);
+}
+
+float Bank::Account::getBalance( void ) const
+{
+    return (this->balance);
+}
+
+int Bank::Account::getId( void ) const
+{
+    return (this->id);
+}
+
+
+void Bank::Account::setPassport(std::string const &passport)
+{
+    this->passport = passport;
+}
+
+void Bank::Account::setId(int id)
+{
+    this->id = id;
+}
+
+void Bank::Account::setFname(std::string const &f){
+    this->fname = f;
+}
+void Bank::Account::setLname(std::string const &l){
+    this->lname = l;
+}
+
+void Bank::Account::setBalance(int balance)
+{
+    this->balance += balance;
+}

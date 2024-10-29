@@ -9,7 +9,7 @@ Bank::Bank()
 
 Bank::~Bank()
 {
-    std::map<int, Account*>::iterator it = users.begin();
+    UsersDb it = users.begin();
     while (it != users.end())
     {
         if (it->second)
@@ -23,15 +23,22 @@ Bank::~Bank()
 
 void Bank::add(std::string const &passport, std::string const &f, std::string const &l)
 {
-    //check if passport already exist
+    // check if passport already exist
+    UsersDb it = users.find(passport);
+    if (it != users.end())
+    {
+        std::cout << "User already Exist" << std::endl;
+        return ;
+    }
     Bank::Account* client = new Bank::Account(passport, f, l);
-    users.insert(std::make_pair(id, client));
+    users.insert(std::make_pair(passport, client));
     id++;
+    std::cout << "Welcome: " << f + " " + l << std::endl;
 }
 
 void Bank::deposit(std::string const &passport, int balance)
 {
-    std::map<int, Account*>::iterator it = users.begin();
+    UsersDb it = users.begin();
     int tBalance = balance;
     while (it != users.end())
     {
@@ -56,9 +63,9 @@ float Bank::getBalance(std::string const &passport)
     throw std::runtime_error("Account not found");
 }
 
-std::string const &Bank::getFname(int id)
+std::string const &Bank::getFname(std::string const &passport)
 {
-    std::map<int, Account*>::iterator it = users.find(id);
+    UsersDb it = users.find(passport);
     if (it != users.end())
         return (it->second->getFname());
     throw std::runtime_error("Account not found");
@@ -123,7 +130,7 @@ void Bank::Account::setLname(std::string const &l){
     this->lname = l;
 }
 
-void Bank::Account::setBalance(int balance)
+void Bank::Account::setBalance(float balance)
 {
     this->balance += balance;
 }

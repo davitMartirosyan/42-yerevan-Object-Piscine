@@ -17,6 +17,7 @@ push:
 	@git add .
 	@read -p "Commit: " $commitMessage
 	@git commit -m "$commitMessage"
+	@git push
 
 fclean: clean
 	@rm -rf $(NAME)

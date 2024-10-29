@@ -10,17 +10,17 @@ class Bank
 		Bank();
 		~Bank();
 	public:
-		void add(std::string const &passport, std::string const &f, std::string const &l);
-		void deposit(std::string const &passport, int balance);
+		void add(std::string const &, std::string const &, std::string const &);
+		void deposit(std::string const &, int);
 	public:
-		float getBalance(std::string const &passport);
-		std::string const &getFname(int id);
+		float getBalance(std::string const &);
+		std::string const &getFname(std::string const &);
 	private:
 		class Account{
 			public:
-				Account(std::string const &passport, 
-						std::string const &f,
-						std::string const &l);
+				Account(std::string const &, 
+						std::string const &,
+						std::string const &);
 				~Account();
 			public:
 				std::string const &getFname( void ) const;
@@ -36,19 +36,19 @@ class Bank
 				std::string lname;
 				std::string passport;
 			private:
-				void setId(int id);
-				void setFname(std::string const &f);
-				void setLname(std::string const &l);
-				void setBalance(int balance);
-				void setPassport(std::string const &passport);
+				void setId(int);
+				void setFname(std::string const &);
+				void setLname(std::string const &);
+				void setBalance(float);
+				void setPassport(std::string const &);
 				friend class Bank;
 		};
-		std::map<int, Account*> users;	
+		std::map<std::string, Account*> users;	
 		static int id;
 		int funds;
 		int loan;
 	public:
-		typedef std::map<int, Account*>::iterator UsersDb;
+		typedef std::map<std::string, Account*>::iterator UsersDb;
 };
 
 #endif

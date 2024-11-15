@@ -14,10 +14,10 @@ $(NAME) : $(OBJ)
 	$(CPP) $(CPP_FLAGS) -c $< -o $@
 
 push:
-	@git add .
-	@read -p "Commit: " $commitMessage
-	@git commit -m "$commitMessage"
-	@git push
+	@read -p "Commit message: " msg; \
+	git add .; \
+	git commit -m "$$msg"; \
+	git push
 
 fclean: clean
 	@rm -rf $(NAME)
@@ -28,4 +28,3 @@ clean:
 re: fclean all
 
 .PHONNY: fclean clean all re
-

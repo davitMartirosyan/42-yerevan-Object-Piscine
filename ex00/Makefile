@@ -1,8 +1,8 @@
 NAME = ex00
-CPP = c++ -g -fsanitize=address -std=c++98
+CPP = c++ -g  -std=c++98
 CPP_FLAGS = -Wall -Wextra -Werror
-SRC = main.cpp  Bank.cpp
-HPP =  Bank.hpp
+SRC = $(wildcard src/*.cpp) main.cpp
+HPP =  $(wildcard inc/*.hpp)
 OBJ = $(SRC:.cpp=.o)
 
 all: $(NAME)

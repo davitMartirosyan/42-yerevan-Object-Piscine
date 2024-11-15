@@ -1,22 +1,14 @@
 #include <iostream>
-#include <stdexcept>
-#include "Bank.hpp"
+#include "inc/Bank.hpp"
 
-int main ( void )
+int main( void )
 {
-	Bank* AmeriaBank = new Bank;
-	try{
+	Bank* bank = new Bank("AmeriaBank");
+	bank->newAccount("Davit", "Martirosyan", 300);
+	bank->newAccount("Vachagan", "Hovhannisyan", 200);
 
-		AmeriaBank->add("AP06500", "Davit", "Martirosyan");
-		AmeriaBank->add("AP06354", "Garik", "Martirosyan");
+	std::cout << "************************" << std::endl;
 
-
-		delete AmeriaBank;
-
-	}
-	catch(std::exception const &e)
-	{
-		std::cout << e.what() << std::endl;
-		delete AmeriaBank;
-	}
+	std::cout << *bank << std::endl;
+	delete bank;
 }

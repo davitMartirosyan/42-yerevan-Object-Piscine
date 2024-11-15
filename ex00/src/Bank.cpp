@@ -142,6 +142,5 @@ std::ostream& operator<<(std::ostream& os, const Bank& bank)
 	os << "Liquidity:" << bank.getLiquidity() << std::endl;
 	for (A_cit it = bank.begin(); it != bank.end(); it++)
 		os << (**it) << std::endl;
-	
 	return os;
 }

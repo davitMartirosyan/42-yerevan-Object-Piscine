@@ -1,9 +1,21 @@
 NAME = ex01
-CXX = c++ -std=c++11
+CXX = c++ -std=c++98
 CXX_FLAGS = #-Wall -Wextra -Werror
-SRC = main.cpp Graph.cpp Command.cpp CreateCommand.cpp
+SRC = 	main.cpp  			\
+		Graph.cpp 			\
+		Command.cpp 		\
+		CreateCommand.cpp 	\
+		AddPointCommand.cpp \
+		PrintCommand.cpp	\
+		Invoker.cpp
+
 OBJ = $(SRC:.cpp=.o)
-HPP = Graph.hpp
+HPP = 	Graph.hpp 			\
+		Command.hpp 		\
+		CreateCommand.hpp 	\
+		AddPointCommand.hpp \
+		PrintCommand.hpp	\
+		Invoker.hpp
 
 all: $(NAME)
 

@@ -1,11 +1,42 @@
 #include "Graph.hpp"
 
+Vector2::Vector2(float _x, float _y)
+    : x(_x), y(_y)
+{
+
+}
+
+Vector2::~Vector2()
+{
+
+}
+
+void Vector2::setX(float _x)
+{
+    x = _x;
+}
+
+void Vector2::setY(float _y)
+{
+    y = _y;
+}
+
+float Vector2::getX()
+{
+    return (x);
+}
+
+float Vector2::getY()
+{
+    return (y);
+}
+
+
 Graph::Graph()
-    :m_sizeX(0), m_sizeY(0), m_vecPoints(nullptr)
+    :m_sizeX(0), m_sizeY(0)
 {
     (void)m_sizeX;
     (void)m_sizeY;
-    (void)m_vecPoints;
 }
 
 Graph::~Graph()
@@ -13,12 +44,47 @@ Graph::~Graph()
 
 }
 
-void Graph::print( void )
+void Graph::clean()
 {
-
+    m_points.clear();
 }
 
-bool Graph::create(size_t w, size_t h)
+void Graph::setSizeX(size_t sizeX)
 {
-    return (false);
+    m_sizeX = sizeX;
+}
+
+void Graph::setSizeY(size_t sizeY)
+{
+    m_sizeY = sizeY;
+}
+
+
+void Graph::print()
+{
+    std::cout << std::endl;
+    for(size_t y = m_sizeY + 1; y > 0;)
+    {
+        std::cout << --y << " ";
+        for(size_t x = m_sizeX + 1; x > 0; x--)
+            std::cout << " • ";
+        std::cout << std::endl;
+    }
+    std::cout << "   ";
+    for(size_t x = 0; x < m_sizeY + 1; x++)
+        std::cout << x << "  ";
+    std::cout << std::endl << std::endl;
+}
+
+bool Graph::create(size_t sizeX, size_t sizeY)
+{
+    m_sizeX = sizeX;
+    m_sizeY = sizeY;
+    this->print();
+    return (true);//unused
+}
+
+void Graph::addPoint(Vector2 const &point)
+{
+    m_points.push_back(point);
 }

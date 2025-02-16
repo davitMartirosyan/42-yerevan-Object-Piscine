@@ -4,7 +4,7 @@
 
 class CreateCommand : public Command
 {
-
+    
 };
 
 #endif  //__CREATE__COMMAND__HPP__

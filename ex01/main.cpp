@@ -25,18 +25,18 @@ int main()
            continue;
         if (command == CREATE)
         {
-            size_t sizeX;
-            size_t sizeY;
+            float sizeX = 0;
+            float sizeY = 0;
             std::cout << "Graph Size(X Y): ";
             std::cin >> sizeX >> sizeY;
 
             if (std::cin.fail())
             {
                 std::cin.clear();
-                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                std::cin.ignore(MAXLIMIT(std::streamsize), '\n');
                 continue;
             }
-            if (sizeX > 0 && sizeY > 0 && sizeX < MAXLIMIT(size_t) && sizeY < MAXLIMIT(size_t))
+            if (sizeX > 0 && sizeY > 0 && sizeX < MAXLIMIT(float) && sizeY < MAXLIMIT(float))
             {
                 graph->clean();
                 invoker->reset(command);
@@ -44,11 +44,13 @@ int main()
                 invoker->set(command, createGraph);
                 invoker->ExecuteCommand(command);
             }
-            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            std::cin.ignore(MAXLIMIT(std::streamsize), '\n');
         }
         else if (command == ADD)
         {
-            std::cout << "Will be implemented" << std::endl;
+            float x = 0;
+            float y = 0;
+
         }
         else if (command == QUIT)
             break;

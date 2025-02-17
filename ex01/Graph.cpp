@@ -63,16 +63,39 @@ void Graph::setSizeY(size_t sizeY)
 void Graph::print()
 {
     std::cout << std::endl;
-    for(size_t y = m_sizeY + 1; y > 0;)
+    // for(size_t y = m_sizeY + 1; y > 0;)
+    // {
+    //     // std::cout << --y << " ";
+    //     for(size_t x = m_sizeX + 1; x > 0; x--)
+    //     {
+    //         if (x)
+    //         std::cout << " • ";
+    //     }
+    //     std::cout << std::endl;
+    // }
+    // std::cout << "   ";
+    // for(size_t x = 0; x < m_sizeX + 1; x++)
+    //     std::cout << x << "  ";
+
+
+    for(int y = (int)m_sizeY; y >= -1; y--)
     {
-        std::cout << --y << " ";
-        for(size_t x = m_sizeX + 1; x > 0; x--)
-            std::cout << " • ";
+        for(int x = -1; x <= (int)m_sizeX; x++)
+        {
+            if (x == -1)
+                if (y != -1)
+                    std::cout << y << " ";
+                else
+                    std::cout << "O" << " ";
+            else if (y != -1)
+            {
+                std::cout << " • ";
+            }
+            else
+                std::cout << " " << x << " ";
+        }
         std::cout << std::endl;
     }
-    std::cout << "   ";
-    for(size_t x = 0; x < m_sizeY + 1; x++)
-        std::cout << x << "  ";
     std::cout << std::endl << std::endl;
 }
 

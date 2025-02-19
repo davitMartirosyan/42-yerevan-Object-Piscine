@@ -44,16 +44,21 @@ int main()
                 invoker->set(command, createGraph);
                 invoker->ExecuteCommand(command);
             }
-            std::cin.ignore(MAXLIMIT(std::streamsize), '\n');
         }
         else if (command == ADD)
         {
             float x = 0;
             float y = 0;
-
+            std::cout << "Add New Point: ";
+            std::cin >> x >> y;
+            invoker->reset(command);
+            Command* addPoint = new AddPointCommand(*graph, x, y);
+            invoker->set(command, addPoint);
+            invoker->ExecuteCommand(command);   
         }
         else if (command == QUIT)
             break;
+        std::cin.ignore(MAXLIMIT(std::streamsize), '\n');
     }
     while(1);
 

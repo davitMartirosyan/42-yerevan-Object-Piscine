@@ -15,9 +15,7 @@ class Vector2
         float getY();
     private:
         float x;
-        float y;    
-    public:
-        friend class Graph;
+        float y;
 };
 
 class Graph

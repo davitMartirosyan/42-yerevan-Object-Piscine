@@ -9,7 +9,7 @@ int main()
     std::string command;
     Invoker *invoker = new Invoker;
     Graph   *graph = new Graph;
-    Command *print = new PrintCommand(*graph);
+    
     do
     {
         std::cout << "$(dmartiro): ";
@@ -34,12 +34,11 @@ int main()
             {
                 graph->clean();
                 invoker->reset(command);
-                Command* createGraph = new CreateCommand(*graph, sizeX, sizeY);
+                Command* createGraph = new CreateCommand(graph, sizeX, sizeY);
                 invoker->set(command, createGraph);
                 invoker->ExecuteCommand(command);
             }
         }
-        
         else if (command == ADD)
         {
             float x = 0;
@@ -53,9 +52,7 @@ int main()
         }
         else if (command == PRINT)
         {
-            for(auto & pVec : graph->getVector()){
-                std::cout << "X: " << pVec.getX() << "  Y: " << pVec.getY() << std::endl;
-            }
+            graph->print();
             continue;
         }
         else if (command == QUIT)
@@ -71,5 +68,4 @@ int main()
 
     delete invoker;
     delete graph;
-    delete print;
 }

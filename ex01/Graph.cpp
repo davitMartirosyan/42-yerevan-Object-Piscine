@@ -63,22 +63,31 @@ void Graph::setSizeY(size_t sizeY)
 void Graph::print()
 {
     std::cout << std::endl;
-    int idx = 0;
-
-    m_points.push_back(Vector2(3, 3));
     for(int y = (int)m_sizeY; y >= -1; y--)
     {
         for(int x = -1; x <= (int)m_sizeX; x++)
         {
             if (x == -1)
                 if (y != -1)
-                    std::cout << y << " ";
+                    std::cout << "\033[32m" << y << "\033[0m ";
                 else
-                    std::cout << "O" << " ";
-            else if (y != -1)
-                std::cout << " • ";
+                    std::cout << "\033[31m" << "O" << "\033[0m ";
+            else if (y != -1){
+                bool found = false;
+                for(size_t i = 0; i < m_points.size(); i++){
+                    if (m_points[i].getX() == x && m_points[i].getY() == y)
+                    {
+                        found = true;
+                        break;
+                    }
+                }
+                if (found)
+                    std::cout << "\033[33m * \033[0m";
+                else
+                    std::cout << "\033[34m • \033[0m";
+            }
             else
-                std::cout << " " << x << " ";
+                std::cout << " " << "\033[32m" << x << "\033[0m ";
         }
         std::cout << std::endl;
     }

@@ -39,6 +39,7 @@ int main()
                 invoker->ExecuteCommand(command);
             }
         }
+        
         else if (command == ADD)
         {
             float x = 0;

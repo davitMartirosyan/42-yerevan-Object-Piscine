@@ -5,11 +5,11 @@
 class AddPointCommand : public Command
 {
     public:
-        AddPointCommand(Graph& graph, float x, float y);
+        AddPointCommand(Graph* graph, float x, float y);
         virtual ~AddPointCommand();
         virtual void execute();
     private:
-        Graph m_graph;
+        Graph *m_graph;
         float m_x;
         float m_y;
 };

@@ -7,10 +7,10 @@
 class Vector2
 {
     public:
-        Vector2(float _x, float _y);
+        Vector2(float, float);
         ~Vector2();
-        void setX(float _x);
-        void setY(float _y);
+        void setX(float);
+        void setY(float);
         float getX();
         float getY();
     private:
@@ -24,12 +24,13 @@ class Graph
         Graph();
         ~Graph();
     public:
-        bool create(size_t w, size_t h);
-        void setSizeX(size_t w);
-        void setSizeY(size_t h);
-        void addPoint(Vector2 const &point);
+        bool create(size_t, size_t);
+        void setSizeX(size_t );
+        void setSizeY(size_t);
+        void addPoint(Vector2 const &);
         void print();
         void clean();
+        std::vector<Vector2> getVector() { return m_points; };
     private:
         size_t m_sizeX;
         size_t m_sizeY;

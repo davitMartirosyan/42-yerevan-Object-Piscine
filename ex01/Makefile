@@ -1,5 +1,5 @@
 NAME = ex01
-CXX = c++ -std=c++98
+CXX = c++ -std=c++11
 CXX_FLAGS = #-Wall -Wextra -Werror
 SRC = 	main.cpp  			\
 		Graph.cpp 			\

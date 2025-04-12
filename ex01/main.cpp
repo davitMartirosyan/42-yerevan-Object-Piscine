@@ -2,14 +2,7 @@
 #include <iostream>
 #include "Graph.hpp"
 #include "Invoker.hpp"
-
-#define CREATE  "create"
-#define ADD     "add"
-#define PRINT   "print"
-#define QUIT    "quit"
-
-#define MAXLIMIT(type) \
-    std::numeric_limits<type>::max()
+#include "CommandLineInterface.hpp"
 
 int main()
 {
@@ -23,6 +16,7 @@ int main()
         std::getline(std::cin, command);
         if (command.empty())
            continue;
+        
         if (command == CREATE)
         {
             float sizeX = 0;
@@ -52,12 +46,24 @@ int main()
             std::cout << "Add New Point: ";
             std::cin >> x >> y;
             invoker->reset(command);
-            Command* addPoint = new AddPointCommand(*graph, x, y);
+            Command* addPoint = new AddPointCommand(graph, x, y);
             invoker->set(command, addPoint);
-            invoker->ExecuteCommand(command);   
+            invoker->ExecuteCommand(command);
+        }
+        else if (command == PRINT)
+        {
+            for(auto & pVec : graph->getVector()){
+                std::cout << "X: " << pVec.getX() << "  Y: " << pVec.getY() << std::endl;
+            }
+            continue;
         }
         else if (command == QUIT)
             break;
+        else
+        {
+            std::cout << "Invalid command" << std::endl;
+            continue;
+        }
         std::cin.ignore(MAXLIMIT(std::streamsize), '\n');
     }
     while(1);

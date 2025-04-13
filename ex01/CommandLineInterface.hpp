@@ -1,6 +1,8 @@
 #ifndef _COMMAND_LINE_INTERFACE_HPP_
 #define _COMMAND_LINE_INTERFACE_HPP_
 #include <string>
+#include <iostream>
+#include "Invoker.hpp"
 
 #define CREATE  "create"
 #define ADD     "add"
@@ -17,9 +19,13 @@ class CommandLineInterface{
         CommandLineInterface();
         ~CommandLineInterface();
     public:
-        bool prepare(std::string const&);
-        bool isValidCommand();
-
+        void prepare(std::string &);
+        void run(Graph* graph, Invoker* invoker, std::string const& cmdName, Command* command);
+        bool isValid();
+    private:
+        std::string ltrim(std::string const&);
+        std::string rtrim(std::string const&);
+        std::string trim(std::string const&);
     private:
         std::string m_prompt;
 };

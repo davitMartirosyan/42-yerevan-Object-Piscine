@@ -9,20 +9,22 @@ int main()
     std::string command;
     Invoker *invoker = new Invoker;
     Graph   *graph = new Graph;
-    
+    CommandLineInterface* cmd = new CommandLineInterface;
+    Points p {.x = 0, .y = 0};
+
     do
     {
         std::cout << "$(dmartiro): ";
         std::getline(std::cin, command);
-        if (command.empty())
+        cmd->prepare(command);
+        if (!cmd->isValid())
            continue;
-        
         if (command == CREATE)
         {
-            float sizeX = 0;
-            float sizeY = 0;
+            p.x = 0;
+            p.y = 0;
             std::cout << "Graph Size(X Y): ";
-            std::cin >> sizeX >> sizeY;
+            std::cin >> p.x >> p.y;
 
             if (std::cin.fail())
             {
@@ -30,25 +32,19 @@ int main()
                 std::cin.ignore(MAXLIMIT(std::streamsize), '\n');
                 continue;
             }
-            if (sizeX > 0 && sizeY > 0 && sizeX < MAXLIMIT(float) && sizeY < MAXLIMIT(float))
+            if (p.x > 0 &&  p.y > 0 && p.x < MAXLIMIT(float) && p.y < MAXLIMIT(float))
             {
                 graph->clean();
-                invoker->reset(command);
-                Command* createGraph = new CreateCommand(graph, sizeX, sizeY);
-                invoker->set(command, createGraph);
-                invoker->ExecuteCommand(command);
+                Command* createGraph = new CreateCommand(graph, p.x, p.y);
+                cmd->run(graph, invoker, command, createGraph);
             }
         }
         else if (command == ADD)
         {
-            float x = 0;
-            float y = 0;
             std::cout << "Add New Point: ";
-            std::cin >> x >> y;
-            invoker->reset(command);
-            Command* addPoint = new AddPointCommand(graph, x, y);
-            invoker->set(command, addPoint);
-            invoker->ExecuteCommand(command);
+            std::cin >> p.x >> p.y;
+            Command* addPoint = new AddPointCommand(graph, p.x, p.y);
+            cmd->run(graph, invoker, command, addPoint);
         }
         else if (command == PRINT)
         {
@@ -68,4 +64,5 @@ int main()
 
     delete invoker;
     delete graph;
+    delete cmd;
 }

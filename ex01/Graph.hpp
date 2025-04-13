@@ -4,6 +4,12 @@
 #include <string>
 #include <iostream>
 #include <limits>
+
+struct Points{
+    float x;
+    float y;
+};
+
 class Vector2
 {
     public:

@@ -7,7 +7,8 @@ SRC = 	main.cpp  			\
 		CreateCommand.cpp 	\
 		AddPointCommand.cpp \
 		PrintCommand.cpp	\
-		Invoker.cpp
+		Invoker.cpp			\
+		CommandLineInterface.cpp
 
 OBJ = $(SRC:.cpp=.o)
 HPP = 	Graph.hpp 			\
@@ -15,7 +16,8 @@ HPP = 	Graph.hpp 			\
 		CreateCommand.hpp 	\
 		AddPointCommand.hpp \
 		PrintCommand.hpp	\
-		Invoker.hpp
+		Invoker.hpp			\
+		CommandLineInterface.hpp
 
 all: $(NAME)
 
